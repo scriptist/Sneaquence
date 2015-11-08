@@ -1,0 +1,30 @@
+.sn__modal {
+	background: white;
+	box-shadow: 0 0 10px rgba(black, 0.15);
+	max-width: 600px;
+	padding: $gutter;
+	text-align: center;
+	width: 100%;
+
+	&>:first-child {
+		margin-top: 0;
+	}
+
+	&>:last-child {
+		margin-bottom: 0;
+	}
+
+	.sn__modal__row {
+		display: flex;
+		margin: 0 #{-$gutter};
+
+		>* {
+			flex: 1;
+			margin: 0 $gutter;
+
+			&:not(:last-child) {
+				border-right: 1px solid $color-gray-light;
+			}
+		}
+	}
+}

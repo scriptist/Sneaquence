@@ -1,28 +1,16 @@
-Api  = require './api'
-View = require './view'
+Api     = require './api'
+View    = require './view'
+Welcome = require './welcome'
 
 module.exports = class Sneaquence
 	constructor: (@el) ->
 		@data = {
 			loading: true
 			state: 'welcome'
-			welcome:
-				sequences: null
-				newSequenceName: null
-				loadSequenceId: null
-				newSequence: @createNewSequence
-				loadSequence: @loadSequence
 		}
 
-		@api = new Api
-		@view = new View @el, @data, @methods
+		@api     = new Api
+		@welcome = new Welcome @api, @data
 
-		@api.get '/sequences', (res) =>
-			@data.welcome.sequences = res.sequences
-			@data.loading   = false
-
-	createNewSequence: ->
-
-
-	loadSequence: ->
-		alert 123
+		# Init view last
+		@view    = new View @el, @data, @methods

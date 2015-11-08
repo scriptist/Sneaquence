@@ -1,8 +1,32 @@
-body {
-	padding: 50px;
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+.sn {
+	// Everything border box
+	&, & * {
+		&, &::before, &::after {
+			box-sizing: border-box;
+		}
+	}
 
-a {
-	color: #00B7FF;
+	$color-gray-light: #eee;
+	$gutter: 20px;
+
+	// Global
+	background: $color-gray-light;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-family: Roboto, sans-serif;
+	font-size: 16px;
+	height: 100%;
+	width: 100%;
+
+	overflow: auto;
+
+	p, ul, ol {
+		line-height: 1.4;
+	}
+
+	// Components
+	@import 'sneaquence/form';
+	@import 'sneaquence/modal';
 }
