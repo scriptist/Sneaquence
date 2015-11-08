@@ -2,13 +2,17 @@ var gulp = require('gulp'),
 	nodemon = require('gulp-nodemon'),
 	plumber = require('gulp-plumber'),
 	livereload = require('gulp-livereload'),
-	coffee = require('gulp-coffee'),
+	rename = require('gulp-rename'),
+	browserify = require('gulp-browserify'),
 	sass = require('gulp-sass');
 
 gulp.task('coffee', function () {
-	gulp.src('./public/coffee/**/*.coffee')
+	gulp.src('./public/coffee/sneaquence.coffee', { read: false })
 	.pipe(plumber())
-	.pipe(coffee())
+	.pipe(browserify({ transform: ['coffeeify'], extensions: ['.coffee'] }))
+	.pipe(rename(function(path) {
+		path.extname = '.js'
+	}))
 	.pipe(gulp.dest('./public/js'))
 	.pipe(livereload());
 });

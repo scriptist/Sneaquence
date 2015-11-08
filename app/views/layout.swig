@@ -11,5 +11,6 @@
 </head>
 <body>
 	{% block content %}{% endblock %}
+	<script src="/js/sneaquence.js"></script>
 </body>
 </html>
