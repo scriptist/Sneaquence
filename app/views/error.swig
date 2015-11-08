@@ -1,4 +1,4 @@
-{% extends 'layout.swig' %}
+{% extends '_layout.swig' %}
 
 {% block content %}
 	<h1>{{ message }}</h1>

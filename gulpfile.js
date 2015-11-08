@@ -9,7 +9,11 @@ var gulp = require('gulp'),
 gulp.task('coffee', function () {
 	gulp.src('./public/coffee/sneaquence.coffee', { read: false })
 		.pipe(plumber())
-		.pipe(browserify({ transform: ['coffeeify'], extensions: ['.coffee'] }))
+		.pipe(browserify({
+			paths: ['./public/coffee', './public/components'],
+			transform: ['coffeeify'],
+			extensions: ['.coffee']
+		}))
 		.pipe(rename(function(path) {
 			path.extname = '.js'
 		}))

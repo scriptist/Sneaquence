@@ -7,9 +7,4 @@ module.exports = (app) ->
 	app.use '/', router
 
 	router.get '/', (req, res, next) ->
-		Sequence.find (err, sequences) ->
-			return next(err) if err
-
-			res.render 'index',
-				title: 'Generator-Express MVC'
-				sequences: sequences
+		res.render 'index'
