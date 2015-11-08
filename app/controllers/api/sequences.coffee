@@ -8,10 +8,18 @@ module.exports = (app) ->
 
 	# Create
 	router.post '/', (req, res, next) ->
-		res.json
-			message: 'Not implemented'
+		sequence = new Sequence
+			name: req.body.name
+			music: ' ' # TODO: read music from blob
+			length: 0 # TODO:
 
-	# Read
+		sequence.save (err) ->
+			return errorHandler res, err if err
+
+			res.json
+				sequence: sequence
+
+	# Read all
 	router.get '/', (req, res, next) ->
 		Sequence.find (err, sequences) ->
 			return errorHandler res, err if err
@@ -19,18 +27,38 @@ module.exports = (app) ->
 			res.json
 				sequences: sequences
 
+	# Read one
+	router.get '/:id', (req, res, next) ->
+		Sequence.findById req.params.id, (err, sequence) ->
+			return errorHandler res, err if err
+			return errorHandler res, 'No sequence found' if !sequence
+
+			res.json
+				sequence: sequence
+
 	# Update
 	router.put '/:id', (req, res, next) ->
-		res.json
-			message: 'Not implemented'
+		$set = {}
+		$set.name = req.body.name if 'name' of req.body
+
+		Sequence.findByIdAndUpdate req.params.id, {$set: $set}, {new: true}, (err, sequence) ->
+			return errorHandler res, err if err
+			return errorHandler res, 'No sequence found' if !sequence
+
+			res.json
+				sequence: sequence
 
 	# Delete
 	router.delete '/:id', (req, res, next) ->
-		res.json
-			message: 'Not implemented'
+		Sequence.findByIdAndRemove req.params.id, (err, sequence) ->
+			return errorHandler res, err if err
+			return errorHandler res, 'No sequence found' if !sequence
+
+			res.json
+				sequence: sequence
 
 
 	errorHandler = (res, error) ->
 		res.json
-			error: error.name
-			message: error.message
+			error: if typeof error == 'string' then true else error.name
+			message: if typeof error == 'string' then error else error.message

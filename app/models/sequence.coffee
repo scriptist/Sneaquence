@@ -30,7 +30,7 @@ AutosaveSchema = new Schema(
 )
 
 SequenceSchema = new Schema(
-	title:
+	name:
 		type: String
 		required: true
 
