@@ -2,10 +2,19 @@ var gulp = require('gulp'),
 	nodemon = require('gulp-nodemon'),
 	plumber = require('gulp-plumber'),
 	livereload = require('gulp-livereload'),
+	coffee = require('gulp-coffee'),
 	sass = require('gulp-sass');
 
+gulp.task('coffee', function () {
+	gulp.src('./public/coffee/**/*.coffee')
+	.pipe(plumber())
+	.pipe(coffee())
+	.pipe(gulp.dest('./public/js'))
+	.pipe(livereload());
+});
+
 gulp.task('sass', function () {
-	gulp.src('./public/scss/*.scss')
+	gulp.src('./public/scss/**/*.scss')
 	.pipe(plumber())
 	.pipe(sass())
 	.pipe(gulp.dest('./public/css'))
@@ -13,7 +22,8 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function() {
-	gulp.watch('./public/scss/*.scss', ['sass']);
+	gulp.watch('./public/coffee/**/*.coffee', ['coffee']);
+	gulp.watch('./public/scss/**/*.scss', ['sass']);
 });
 
 gulp.task('develop', function () {
@@ -34,6 +44,7 @@ gulp.task('develop', function () {
 });
 
 gulp.task('default', [
+	'coffee',
 	'sass',
 	'develop',
 	'watch'
