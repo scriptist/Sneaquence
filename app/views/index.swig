@@ -3,29 +3,35 @@
 {% block content %}
 {% raw %}
 
-	<div id="sneaquence" class="sn sn--loading" v-bind:class="{ 'sn--loading': loading }">
+	<div id="sneaquence" class="sn sn--loading" :class="{ 'sn--loading': loading }">
 
-		<div class="sn__modal" v-if="state == 'welcome'">
+		<div class="sn__modal" v-if="!sequence">
 			<h1>Welcome to Sneaquence</h1>
 			<p>Sneaquence will help you sequence your Christmas lights to music. The sequences will be saved to a MongoDB database in an open JSON format that can be read by a controller such as a Reaspberry Pi.</p>
 			<div class="sn__modal__row">
-				<form class="sn__form" v-on:submit="welcome.newSequence">
+				<form class="sn__form">
 					<h2>New</h2>
-					<input type="text" v-model="welcome.newSequenceName" placeholder="Name" required><br>
-					<input type="file"><br>
-					<button type="submit" class="sn__button">New</button>
+					<input type="text" v-model="welcome.newSequenceName" placeholder="Name" required>
+					<input type="file" id="song" @change="welcome.newSequence" required>
+					<label for="song" class="sn__button" :disabled="!welcome.newSequenceName" @click="welcome.checkLoadValidity">
+						Select File
+					</label>
 				</form>
-				<form class="sn__form" v-on:submit="welcome.loadSequence">
+				<form class="sn__form" @submit="welcome.loadSequence">
 					<h2>Load</h2>
 					<select v-model="welcome.loadSequenceId" required>
-						<option value="" selected>Select a sequence</option><br>
+						<option value="" selected>Select a sequence</option>
 						<option v-for="sequence in welcome.sequences" v-bind:value="sequence._id">
 							{{sequence.name}}
 						</option>
-					</select><br>
-					<button type="submit" class="sn__button">Load</button>
+					</select>
+					<button type="submit" class="sn__button" :disabled="!welcome.loadSequenceId">Load</button>
 				</form>
 			</div>
+		</div>
+
+		<div class="sn__sequencer" v-if="sequence">
+			<button type="button" class="sn__button" @click="player.play" :disabled="player.loading">Play</button>
 		</div>
 
 	</div>

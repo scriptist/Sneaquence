@@ -4,6 +4,7 @@ var gulp = require('gulp'),
 	livereload = require('gulp-livereload'),
 	rename = require('gulp-rename'),
 	browserify = require('gulp-browserify'),
+	autoprefixer = require('gulp-autoprefixer'),
 	sass = require('gulp-sass');
 
 gulp.task('coffee', function () {
@@ -25,6 +26,7 @@ gulp.task('sass', function () {
 	gulp.src('./public/scss/**/*.scss')
 		.pipe(plumber())
 		.pipe(sass())
+		.pipe(autoprefixer())
 		.pipe(gulp.dest('./public/css'))
 		.pipe(livereload());
 });

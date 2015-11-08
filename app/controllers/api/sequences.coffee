@@ -10,7 +10,7 @@ module.exports = (app) ->
 	router.post '/', (req, res, next) ->
 		sequence = new Sequence
 			name: req.body.name
-			music: ' ' # TODO: read music from blob
+			music: req.body.music
 			length: 0 # TODO:
 
 		sequence.save (err) ->
