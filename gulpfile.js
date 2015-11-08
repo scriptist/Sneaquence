@@ -34,7 +34,7 @@ gulp.task('develop', function () {
 	livereload.listen();
 	nodemon({
 		script: 'app.js',
-		ext: 'js coffee swig',
+		ext: 'js coffee',
 		ignore: 'public',
 		stdout: false
 	}).on('readable', function () {
@@ -43,9 +43,11 @@ gulp.task('develop', function () {
 				livereload.changed(__dirname);
 			}
 		});
-	this.stdout.pipe(process.stdout);
-	this.stderr.pipe(process.stderr);
+		this.stdout.pipe(process.stdout);
+		this.stderr.pipe(process.stderr);
 	});
+
+	gulp.watch('app/views/**/*.swig', livereload.reload);
 });
 
 gulp.task('default', [
