@@ -42,10 +42,6 @@ SequenceSchema = new Schema(
 		type: String
 		required: true
 
-	length:
-		type: Number
-		required: true
-
 	instructions: [InstructionSchema]
 
 	autosaves: [AutosaveSchema]

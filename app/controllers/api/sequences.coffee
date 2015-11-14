@@ -11,7 +11,6 @@ module.exports = (app) ->
 		sequence = new Sequence
 			name: req.body.name
 			music: req.body.music
-			length: 0 # TODO:
 
 		sequence.save (err) ->
 			return errorHandler res, err if err
