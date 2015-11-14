@@ -34,6 +34,9 @@ directives.push {
 			@onMouseUp   = @onMouseUp  .bind @
 
 			@el.addEventListener 'mousedown', @onMouseDown
+			setTimeout =>
+				@render 0
+			, 100
 
 		update: (newValue, oldValue) ->
 			@render newValue
@@ -52,9 +55,7 @@ directives.push {
 			@onMouseMove e
 
 		onMouseMove: (e) ->
-			proportion = e.pageX / @parentWidth
-			proportion = Math.min(Math.max(proportion, 0), 1)
-			time = proportion * this.params.duration
+			time = @posToTime e.pageX
 			this.set time
 			@render time
 
@@ -63,7 +64,25 @@ directives.push {
 			window.removeEventListener 'mousemove', @onMouseMove
 			window.removeEventListener 'mouseup', @onMouseUp
 
+		posToTime: (pos) ->
+			if !@parentWidth
+				return 0
+
+			proportion = (pos - @el.offsetWidth / 2) / (@parentWidth - @el.offsetWidth)
+			proportion = Math.min(Math.max(proportion, 0), 1)
+			time = proportion * this.params.duration
+			return time
+
+		timeToPos: (time) ->
+			if !@parentWidth
+				return @el.offsetWidth / 2
+
+			pos = time / this.params.duration * (@parentWidth - @el.offsetWidth) + @el.offsetWidth / 2
+			return pos
+
 		render: (time) ->
-			@el.style.left = time / this.params.duration * 100 + '%'
+			pos = @timeToPos time
+
+			@el.style.left = pos + 'px'
 	}
 }
