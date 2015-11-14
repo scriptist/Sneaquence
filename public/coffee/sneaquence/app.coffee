@@ -30,6 +30,11 @@ module.exports = class Sneaquence
 			if val && !@data.player.loaded && !@data.player.loading
 				@player.load()
 
+		@view.vm.$watch 'player.loaded', (val) =>
+			if val
+				@data.sequence.music = null
+				delete @data.sequence.music
+
 		window.addEventListener 'keyup', (e) =>
 			if e.keyCode == 192 # `
 				@data.debug.toggle()
