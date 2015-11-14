@@ -9,7 +9,7 @@ module.exports = class Sneaquence
 			loading: true
 			sequence: null
 			player: null
-			cursor: 10
+			cursor: 0
 		}
 
 		window.data = @data
