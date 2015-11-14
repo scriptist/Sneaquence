@@ -8,15 +8,21 @@ module.exports = class Sneaquence
 		@data = {
 			loading: true
 			sequence: null
+			player: null
+			cursor: 10
 		}
+
+		window.data = @data
 
 		@api     = new Api
 		@player  = new Player @data
-		@welcome = new Welcome @api, @data, =>
-			@player.load()
-
+		@welcome = new Welcome @api, @data
 
 		# Init view last
 		@view    = new View @el, @data, @methods
 
-		# @welcome.loadSequence '563f74573b5cb5501940464f'
+		@view.vm.$watch 'sequence', (val) =>
+			if val && !@data.player.loaded && !@data.player.loading
+				@player.load()
+
+		@welcome.loadSequence '56471186857f029417011eb7'

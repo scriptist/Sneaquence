@@ -12,7 +12,7 @@
 				<form class="sn__form">
 					<h2>New</h2>
 					<input type="text" v-model="welcome.newSequenceName" placeholder="Name" required>
-					<input type="file" id="song" @change="welcome.newSequence" required>
+					<input type="file" id="song" @change="welcome.newSequence" accept="audio/mpeg,audio/mp3" required>
 					<label for="song" class="sn__button" :disabled="!welcome.newSequenceName" @click="welcome.checkLoadValidity">
 						Select File
 					</label>
@@ -31,7 +31,20 @@
 		</div>
 
 		<div class="sn__sequencer" v-if="sequence">
-			<button type="button" class="sn__button" @click="player.play" :disabled="player.loading">Play</button>
+			<div class="sn__sequencer__top">
+				<div class="sn__sequencer__top__left sn__preview">
+
+				</div>
+				<div class="sn__sequencer__top__right sn__control">
+
+				</div>
+			</div>
+
+			<div class="sn__sequencer__bottom sn__timeline">
+				<div class="sn__timeline__cursor" v-cursor="cursor" :duration="player.duration" v-if="player.loaded"></div>
+			</div>
+
+			<!--<button type="button" class="sn__button" @click="player.play" :disabled="!player.loaded">Play</button>-->
 		</div>
 
 	</div>

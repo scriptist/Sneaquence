@@ -1,18 +1,24 @@
 module.exports = class Player
 	constructor: (@data) ->
 		@data.player =
-			loading: true
+			duration: null
+			loaded: false
+			loading: false
 			play: @play
 
 	load: =>
+		@data.player.loading = true
+
 		arr = dataURIToBinary @data.sequence.music
 		@context = new AudioContext
 		@context.decodeAudioData arr.buffer, (buffer) =>
 			@buffer = buffer
+			@data.player.duration = @buffer.duration
+			@data.player.loaded = true
 			@data.player.loading = false
 
 	play: =>
-		if @data.player.loading
+		if !@data.player.loaded
 			return false
 
 		source = @context.createBufferSource()

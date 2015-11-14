@@ -21,9 +21,8 @@
 	font-family: Roboto, sans-serif;
 	font-size: 16px;
 	height: 100%;
+	overflow: hidden;
 	width: 100%;
-
-	overflow: auto;
 
 	// Typography
 	h1, h2, h3 {
@@ -36,6 +35,10 @@
 
 	// Components
 	@import 'sneaquence/button';
+	@import 'sneaquence/control';
 	@import 'sneaquence/form';
 	@import 'sneaquence/modal';
+	@import 'sneaquence/preview';
+	@import 'sneaquence/sequencer';
+	@import 'sneaquence/timeline';
 }

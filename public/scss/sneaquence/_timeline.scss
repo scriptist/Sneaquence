@@ -1,0 +1,32 @@
+.sn__timeline {
+	border-top: 1px solid black;
+	position: relative;
+
+	.sn__timeline__cursor {
+		$color: black;
+		$width: 2px;
+
+		background: $color;
+		cursor: ew-resize;
+		width: $width;
+
+		position: absolute;
+		top: 0;
+		bottom: 0;
+
+		&::before {
+			$size: 16px;
+
+			border: $size/2 solid transparent;
+			border-top-color: $color;
+			content: '';
+			display: block;
+			width: $size + $width;
+			height: $size;
+
+			position: absolute;
+			top: -$size/2;
+			left: -$size/2;
+		}
+	}
+}

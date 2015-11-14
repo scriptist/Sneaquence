@@ -1,5 +1,5 @@
 module.exports = class Welcome
-	constructor: (@api, @data, @done) ->
+	constructor: (@api, @data) ->
 		@data.welcome =
 			sequences: null
 			newSequenceName: null
@@ -36,7 +36,6 @@ module.exports = class Welcome
 				else
 					@data.sequence = res.sequence
 					@data.sequence.music = sequence.music
-					typeof @done == 'function' && @done()
 
 		reader.readAsDataURL e.target.files[0]
 
@@ -55,4 +54,3 @@ module.exports = class Welcome
 				alert res.message
 			else
 				@data.sequence = res.sequence
-				typeof @done == 'function' && @done()
