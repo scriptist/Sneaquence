@@ -1,0 +1,31 @@
+.sn__debug {
+	background: white;
+	box-shadow: 0 0 25px rgba(black, 0.3);
+	display: none;
+	overflow: auto;
+	padding: 20px;
+
+	position: absolute;
+	top: 10%;
+	right: 10%;
+	bottom: 10%;
+	left: 10%;
+
+	z-index: 1000;
+
+	&.sn__debug--visible {
+		display: block;
+	}
+
+	>:first-child {
+		margin-top: 0;
+	}
+
+	pre {
+		background: #f4f4f4;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		overflow: auto;
+		padding: 10px;
+	}
+}

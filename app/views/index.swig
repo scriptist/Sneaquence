@@ -5,6 +5,15 @@
 
 	<div id="sneaquence" class="sn sn--loading" :class="{ 'sn--loading': loading }">
 
+		<div class="sn__debug" :class="{ 'sn__debug--visible': debug.visible }">
+			<h3>Cursor</h3>
+			<pre>{{cursor | json}}</pre>
+			<h3>Player</h3>
+			<pre>{{player | json}}</pre>
+			<h3>Sequence</h3>
+			<pre>{{sequence | json}}</pre>
+		</div>
+
 		<div class="sn__modal" v-if="!sequence">
 			<h1>Welcome to Sneaquence</h1>
 			<p>Sneaquence will help you sequence your Christmas lights to music. The sequences will be saved to a MongoDB database in an open JSON format that can be read by a controller such as a Reaspberry Pi.</p>

@@ -10,6 +10,11 @@ module.exports = class Sneaquence
 			sequence: null
 			player: null
 			cursor: 0
+			debug: {
+				visible: false
+				toggle: =>
+					@data.debug.visible = !@data.debug.visible
+			}
 		}
 
 		window.data = @data
@@ -24,5 +29,9 @@ module.exports = class Sneaquence
 		@view.vm.$watch 'sequence', (val) =>
 			if val && !@data.player.loaded && !@data.player.loading
 				@player.load()
+
+		window.addEventListener 'keyup', (e) =>
+			if e.keyCode == 192 # `
+				@data.debug.toggle()
 
 		@welcome.loadSequence '56471186857f029417011eb7'
